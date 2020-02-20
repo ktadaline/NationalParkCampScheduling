@@ -16,7 +16,7 @@ namespace Capstone.DAL
             connectionString = dbConnectionString;
         }
 
-        public IList<Park>GetParks()
+        public List<Park>GetParks()
         {
             List<Park> parks = new List<Park>();
             try
@@ -53,7 +53,19 @@ namespace Capstone.DAL
             return parks;
         }
 
-        public string DisplayPark(Park park)
+        public List<string> DisplayParkList(List<Park>parks)
+        {
+            int count = 1;
+            List<string> displayparklist = new List<string>();
+            foreach(Park park in parks)
+            {
+                string p = count.ToString() + ") " + park.parkName;
+                displayparklist.Add(p);
+                count++;
+            }
+            return displayparklist;
+        }
+        public string DisplayParkDetails(Park park)
         {
             string displayPark = park.parkName + "\nLocation:  " + park.location + "\nEstablished:  " + park.establishDate.ToString() + "\nArea:  " + park.area.ToString() + " sq km \nAnnual Visitors:  " + park.visitors.ToString() + "\n" + park.description;
             return displayPark;

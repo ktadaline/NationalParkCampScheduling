@@ -1,6 +1,7 @@
 ﻿using Capstone.DAL;
 using System;
 using System.Collections.Generic;
+using Capstone;
 
 namespace Capstone.Views
 {
@@ -34,7 +35,7 @@ namespace Capstone.Views
 
         protected override void SetMenuOptions()
         {
-            this.menuOptions.Add("1", "Add 2 integers");
+            this.menuOptions.Add("1", "Display Parks");
             this.menuOptions.Add("2", "Menu option 2");
             this.menuOptions.Add("3", "Go to a sub-menu");
             this.menuOptions.Add("Q", "Quit program");
@@ -51,9 +52,14 @@ namespace Capstone.Views
             switch (choice)
             {
                 case "1": // Do whatever option 1 is
-                    int i1 = GetInteger("Enter the first integer: ");
-                    int i2 = GetInteger("Enter the second integer: ");
-                    Console.WriteLine($"{i1} + {i2} = {i1+i2}");
+                    //int i1 = GetInteger("Enter the first integer: ");
+                    //int i2 = GetInteger("Enter the second integer: ");
+                    //Console.WriteLine($"{i1} + {i2} = {i1+i2}");
+
+                    Console.WriteLine("Select a Park for Further Details:");
+                    //DisplayParkList(GetParks());
+                    Console.WriteLine();
+                    viewParks();
                     Pause("Press enter to continue");
                     return true;    // Keep running the main menu
                 case "2": // Do whatever option 2 is
@@ -66,6 +72,16 @@ namespace Capstone.Views
                     return true;    // Keep running the main menu
             }
             return true;
+        }
+
+        private void viewParks()
+        {
+            List<Park> viewParks = parkDAO.GetParks();
+            List<string>displayParks= parkDAO.DisplayParkList(viewParks);
+            foreach(string park in displayParks)
+            {
+                Console.WriteLine(park);
+            }
         }
 
         protected override void BeforeDisplayMenu()
