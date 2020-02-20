@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Capstone.DAL
 {
-    class CampsiteDAO :ICampsiteDAO
+    public class CampsiteDAO : ICampsiteDAO
     {
         private string connectionString;
 
@@ -14,7 +14,7 @@ namespace Capstone.DAL
             connectionString = dbConnectionString;
         }
 
-        public IList<Site> GetCampsites(string campgroundName, DateTime startDate, DateTime endDate)
+        public IList<Site> GetAvailableSitesOnCampground(string campgroundName, DateTime startDate, DateTime endDate)
         {
             List<Site> campsites = new List<Site>();
             try
@@ -64,12 +64,45 @@ WHERE campground.name = @campgroundName
             return campsites;
         }
 
-        public List<Site> GetTop5Campsites(List<Site> allsites)
+        public List<string> GetTop5Campsites(List<Site> allsites, DateTime startDate, DateTime endDate)
         {
+            string isAccessible = "";
+            string maxRV = "";
+            string utilities = "";
+            List<string> Top5CampsitesString = new List<string>(); 
+            foreach(Site site in allsites)
+            {
+                if(site.accessible)
+                {
+                    isAccessible = "Yes";
+                }
+                else
+                {
+                    isAccessible = "No";
+                }
+               
+                if(site.maxRvLength ==0)
+                {
+                    maxRV = "N/A";
+                }
+                else
+                {
+                    maxRV = site.maxRvLength.ToString();
+                }
+                if(site.utilities)
+                {
+                    utilities = "Yes";
+                }
+                else
+                {
+                    utilities = "N/A";
+                }
 
-            List<Site> Top5Campsites = new List<Site>();
-            Top5Campsites =  allsites.GetRange(0, 5);
-            return Top5Campsites;
+                string s = campgroundIdToName(site.campgroundId) + site.siteNumber.ToString() + site.maxOccupancy.ToString() + isAccessible + maxRV + utilities + GetPriceOfStay(site, startDate, endDate).ToString();
+                Top5CampsitesString.Add(s);
+
+            }
+            return Top5CampsitesString.GetRange(0, 5);
 
         }
 
@@ -112,6 +145,33 @@ WHERE site.site_id = @siteId and campground.campground_id = site.campground_id
             priceOfStay = durationOfStayNum * dailyFee;
             return priceOfStay;
         }
+        public string campgroundIdToName(int campgroundId)
+        {
+            string cn = "";
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
 
+                    string sql = "SELECT Top1 campground.name FROM site Join Campground on Site.campground_id = campground.campground_id  WHERE site.campground_id=@campgroundId;";
+
+                    SqlCommand cmd = new SqlCommand(sql, conn);
+                    cmd.Parameters.AddWithValue("@campgroundId", campgroundId);
+
+                    SqlDataReader rdr = cmd.ExecuteReader();
+
+                    while (rdr.Read())
+                    {
+                        cn = Convert.ToString(rdr["campground.name"]);
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return cn;
+        }
     }
 }

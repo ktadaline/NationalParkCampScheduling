@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Capstone.DAL
 {
-    class CampgroundDAO : ICampgroundDAO
+public    class CampgroundDAO : ICampgroundDAO
     {
         private string connectionString;
 
@@ -34,10 +34,10 @@ namespace Capstone.DAL
                         Campground campground = new Campground();
                         campground.parkId = Convert.ToInt32(rdr["park_id"]);
                         campground.campgroundName = Convert.ToString(rdr["name"]);
-                        campground.openFromDate = Convert.ToDateTime(rdr["open_from_mm"]);
-                        campground.openToDate= Convert.ToDateTime(rdr["open_to_mm"]);
+                        campground.openFromDate = Convert.ToInt32(rdr["open_from_mm"]);
+                        campground.openToDate = Convert.ToInt32(rdr["open_to_mm"]);
                         campground.dailyFee = Convert.ToDecimal(rdr["daily_fee"]);
-                   
+
 
                         campgrounds.Add(campground);
 
@@ -51,5 +51,38 @@ namespace Capstone.DAL
             }
             return campgrounds;
         }
+
+        public List<string> campgroundsToString(List<Campground> campgrounds)
+        {
+            List<string> campgroundStrings = new List<string>();
+            Dictionary<int, string> months = new Dictionary<int, string>()
+            {
+                {1, "January"},
+                {2, "February"},
+                {3, "March"},
+                {4, "April"},
+                {5, "May"},
+                {6, "June"},
+                {7, "July"},
+                {8, "August"},
+                {9, "September"},
+                {10, "October"},
+                {11, "November"},
+                {12, "December"}
+            };
+
+            int count = 1;
+            foreach (Campground campground in campgrounds)
+            {
+                string cg = count.ToString() + campground.campgroundName + months[campground.openFromDate] + months[campground.openToDate] + campground.dailyFee.ToString();
+                campgroundStrings.Add(cg);
+                
+                count++;
+            }
+            return campgroundStrings;
+
+
+        }
+      
     }
 }

@@ -6,7 +6,7 @@ using Capstone;
 
 namespace Capstone.DAL
 {
-    class ParkDAO : IParkDAO
+    public class ParkDAO : IParkDAO
     {
 
         private string connectionString;
@@ -53,6 +53,10 @@ namespace Capstone.DAL
             return parks;
         }
 
-
+        public string DisplayPark(Park park)
+        {
+            string displayPark = park.parkName + "\nLocation:  " + park.location + "\nEstablished:  " + park.establishDate.ToString() + "\nArea:  " + park.area.ToString() + " sq km \nAnnual Visitors:  " + park.visitors.ToString() + "\n" + park.description;
+            return displayPark;
+        }
     }
 }

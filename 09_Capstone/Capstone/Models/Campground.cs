@@ -11,9 +11,9 @@ namespace Capstone
 
         public string campgroundName { get; set; }
 
-        public DateTime openFromDate { get; set; }
+        public int openFromDate { get; set; }
 
-        public DateTime openToDate { get; set; }
+        public int openToDate { get; set; }
 
         public decimal dailyFee { get; set; }
 
