@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Capstone.DAL;
+using System;
 using System.Collections.Generic;
 
 namespace Capstone.Views
@@ -11,12 +12,22 @@ namespace Capstone.Views
         // DAOs - Interfaces to our data objects can be stored here...
         //protected ICityDAO cityDAO;
         //protected ICountryDAO countryDAO;
+        protected ICampgroundDAO campgroundDAO;
+        protected ICampsiteDAO campsiteDAO;
+        protected IParkDAO parkDAO;
+        protected IReservationDAO reservationDAO;
+
 
         /// <summary>
         /// Constructor adds items to the top-level menu. YOu will likely have parameters for one or more DAO's here...
         /// </summary>
-        public MainMenu(/***ICityDAO cityDAO, ICountryDAO countryDAO***/) : base("Main Menu")
+        public MainMenu(ICampgroundDAO campgroundDAO, ICampsiteDAO campsiteDAO, IParkDAO parkDAO, IReservationDAO reservationDAO) : base("Main Menu")
         {
+            this.campgroundDAO = campgroundDAO;
+            this.campsiteDAO = campsiteDAO;
+            this.parkDAO = parkDAO;
+            this.reservationDAO = reservationDAO;
+
             //this.cityDAO = cityDAO;
             //this.countryDAO = countryDAO;
         }

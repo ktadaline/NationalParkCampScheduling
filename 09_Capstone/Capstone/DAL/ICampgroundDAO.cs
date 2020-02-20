@@ -4,7 +4,11 @@ using System.Text;
 
 namespace Capstone.DAL
 {
-    class ParkDAL
+   public interface ICampgroundDAO
     {
+
+        
+
+
     }
 }

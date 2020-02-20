@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Capstone.DAL
 {
-    class ReservationDAL
+    public interface ICampsiteDAO
     {
     }
 }
