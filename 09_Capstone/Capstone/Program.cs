@@ -17,7 +17,7 @@ namespace Capstone
 
             IConfigurationRoot configuration = builder.Build();
 
-            string connectionString = configuration.GetConnectionString("ncampground");
+            string connectionString = configuration.GetConnectionString("npcampground");
 
             /********************************************************************
             // If you do not want to use CLIMenu, you can remove the following
@@ -33,7 +33,7 @@ namespace Capstone
             
 
 
-            MainMenu mainMenu = new MainMenu( campgroundDAO, campsiteDAO, parkDAO, reservationDAO);  // You'll probably be adding daos to the constructor
+            MainMenu mainMenu = new MainMenu(campgroundDAO, campsiteDAO, parkDAO, reservationDAO);  // You'll probably be adding daos to the constructor
 
             // Run the menu.
             mainMenu.Run();

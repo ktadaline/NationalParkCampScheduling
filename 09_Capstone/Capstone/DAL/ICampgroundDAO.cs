@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace Capstone.DAL
 {
-   public interface ICampgroundDAO
+    public interface ICampgroundDAO
     {
-
-        IList<Campground> GetCampgrounds(string parkName);
-
         List<string> campgroundsToString(List<Campground> campgrounds);
-
-
+        IList<Campground> GetCampgrounds(string parkName);
     }
 }

@@ -69,10 +69,10 @@ WHERE campground.name = @campgroundName
             string isAccessible = "";
             string maxRV = "";
             string utilities = "";
-            List<string> Top5CampsitesString = new List<string>(); 
-            foreach(Site site in allsites)
+            List<string> Top5CampsitesString = new List<string>();
+            foreach (Site site in allsites)
             {
-                if(site.accessible)
+                if (site.accessible)
                 {
                     isAccessible = "Yes";
                 }
@@ -80,8 +80,8 @@ WHERE campground.name = @campgroundName
                 {
                     isAccessible = "No";
                 }
-               
-                if(site.maxRvLength ==0)
+
+                if (site.maxRvLength == 0)
                 {
                     maxRV = "N/A";
                 }
@@ -89,7 +89,7 @@ WHERE campground.name = @campgroundName
                 {
                     maxRV = site.maxRvLength.ToString();
                 }
-                if(site.utilities)
+                if (site.utilities)
                 {
                     utilities = "Yes";
                 }

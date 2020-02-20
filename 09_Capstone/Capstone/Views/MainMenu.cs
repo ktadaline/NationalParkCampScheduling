@@ -2,6 +2,9 @@
 using System;
 using System.Collections.Generic;
 using Capstone;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Capstone.Views
 {
@@ -56,9 +59,11 @@ namespace Capstone.Views
                     //int i2 = GetInteger("Enter the second integer: ");
                     //Console.WriteLine($"{i1} + {i2} = {i1+i2}");
 
-                    Console.WriteLine("Select a Park for Further Details:");
+                    //Console.WriteLine("Select a Park for Further Details:");
                     //DisplayParkList(GetParks());
                     Console.WriteLine();
+                    //parkDAO.GetParks();
+                        //campgroundDAO.GetCampgrounds("Arches");
                     viewParks();
                     Pause("Press enter to continue");
                     return true;    // Keep running the main menu
@@ -74,11 +79,12 @@ namespace Capstone.Views
             return true;
         }
 
-        private void viewParks()
+        public void viewParks()
         {
+            //Console.WriteLine("test");
             List<Park> viewParks = parkDAO.GetParks();
-            List<string>displayParks= parkDAO.DisplayParkList(viewParks);
-            foreach(string park in displayParks)
+            List<string> displayParks = parkDAO.DisplayParkList(viewParks);
+            foreach (string park in displayParks)
             {
                 Console.WriteLine(park);
             }

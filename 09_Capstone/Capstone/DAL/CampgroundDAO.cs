@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Capstone.DAL
 {
-public    class CampgroundDAO : ICampgroundDAO
+    public class CampgroundDAO : ICampgroundDAO
     {
         private string connectionString;
 
@@ -76,13 +76,13 @@ public    class CampgroundDAO : ICampgroundDAO
             {
                 string cg = count.ToString() + campground.campgroundName + months[campground.openFromDate] + months[campground.openToDate] + campground.dailyFee.ToString();
                 campgroundStrings.Add(cg);
-                
+
                 count++;
             }
             return campgroundStrings;
 
 
         }
-      
+
     }
 }

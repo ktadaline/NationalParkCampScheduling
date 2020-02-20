@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace Capstone.DAL
 {
-   public interface IParkDAO
+    public interface IParkDAO
     {
-        List<Park> GetParks();
-
-        List<string> DisplayParkList(List<Park> parks);
-
         string DisplayParkDetails(Park park);
-
+        List<string> DisplayParkList(List<Park> parks);
+        List<Park> GetParks();
     }
 }

@@ -11,12 +11,12 @@ namespace Capstone.DAL
 
         private string connectionString;
 
-        public ParkDAO (string dbConnectionString)
+        public ParkDAO(string dbConnectionString)
         {
             connectionString = dbConnectionString;
         }
 
-        public List<Park>GetParks()
+        public List<Park> GetParks()
         {
             List<Park> parks = new List<Park>();
             try
@@ -30,7 +30,7 @@ namespace Capstone.DAL
 
                     SqlDataReader rdr = cmd.ExecuteReader();
 
-                    while(rdr.Read())
+                    while (rdr.Read())
                     {
                         Park park = new Park();
                         park.parkName = Convert.ToString(rdr["name"]);
@@ -42,7 +42,6 @@ namespace Capstone.DAL
 
                         parks.Add(park);
 
-
                     }
                 }
             }
@@ -53,11 +52,11 @@ namespace Capstone.DAL
             return parks;
         }
 
-        public List<string> DisplayParkList(List<Park>parks)
+        public List<string> DisplayParkList(List<Park> parks)
         {
             int count = 1;
             List<string> displayparklist = new List<string>();
-            foreach(Park park in parks)
+            foreach (Park park in parks)
             {
                 string p = count.ToString() + ") " + park.parkName;
                 displayparklist.Add(p);
