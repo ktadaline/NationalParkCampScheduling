@@ -66,6 +66,8 @@ namespace Capstone.DAL
         }
         public string DisplayParkDetails(Park park)
         {
+
+
             string displayPark = park.parkName + "\nLocation:  " + park.location + "\nEstablished:  " + park.establishDate.ToString() + "\nArea:  " + park.area.ToString() + " sq km \nAnnual Visitors:  " + park.visitors.ToString() + "\n" + park.description;
             return displayPark;
         }

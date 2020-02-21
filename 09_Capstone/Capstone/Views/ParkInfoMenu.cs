@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Capstone.DAL;
+using System;
 using System.Collections.Generic;
 
 namespace Capstone.Views
@@ -6,24 +7,34 @@ namespace Capstone.Views
     /// <summary>
     /// The top-level menu in our Market Application
     /// </summary>
-    public class SubMenu1 : CLIMenu
+    public class ParkInfoMenu : CLIMenu
     {
         // Store any private variables, including DAOs here....
+        protected ICampgroundDAO campgroundDAO;
+        protected ICampsiteDAO campsiteDAO;
+        protected IParkDAO parkDAO;
+        protected IReservationDAO reservationDAO;
+        private Park park;
 
 
         /// <summary>
         /// Constructor adds items to the top-level menu
         /// </summary>
-        public SubMenu1(/** DAOs may be passed in... ***/) :
+        public ParkInfoMenu(ICampgroundDAO campgroundDAO, ICampsiteDAO campsiteDAO, IParkDAO parkDAO, IReservationDAO reservationDAO, Park park) :
             base("Sub-Menu 1")
         {
             // Store any values or DAOs passed in....
+            this.campgroundDAO = campgroundDAO;
+            this.campsiteDAO = campsiteDAO;
+            this.parkDAO = parkDAO;
+            this.reservationDAO = reservationDAO;
+            this.park = park;
         }
 
         protected override void SetMenuOptions()
         {
-            this.menuOptions.Add("1", "Option 1");
-            this.menuOptions.Add("2", "Do Option 2 and return to Main");
+            this.menuOptions.Add("1", "View Campgrounds");
+            //this.menuOptions.Add("2", "Do Option 2 and return to Main");
             this.menuOptions.Add("B", "Back to Main Menu");
             this.quitKey = "B";
         }
@@ -36,23 +47,29 @@ namespace Capstone.Views
         /// <returns></returns>
         protected override bool ExecuteSelection(string choice)
         {
-            switch (choice)
+            IList<Campground> listCG = campgroundDAO.GetCampgrounds(park);
+            
+            List<string> listCGstrings = campgroundDAO.campgroundsToString(listCG);
+            foreach (string s in listCGstrings)
             {
-                case "1": // Do whatever option 1 is
-                    WriteError("Not yet implemented");
-                    Pause("");
-                    return true;
-                case "2": // Do whatever option 2 is
-                    WriteError("Not yet implemented");
-                    Pause("");
-                    return false;
+                Console.WriteLine();
             }
+            Pause("");
+
+            int inputNum = int.Parse(choice);
+            Campground campground = listCG[inputNum - 1];
+
+            ParkCampgroundsMenu pgm = new ParkCampgroundsMenu(campgroundDAO, campsiteDAO, parkDAO, reservationDAO, campground);
+            pgm.Run();
+
             return true;
         }
 
         protected override void BeforeDisplayMenu()
         {
             PrintHeader();
+            string displayParks = parkDAO.DisplayParkDetails(park);
+            Console.WriteLine(displayParks);   
         }
 
         protected override void AfterDisplayMenu()

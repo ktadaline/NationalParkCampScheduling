@@ -8,6 +8,6 @@ namespace Capstone.DAL
         string campgroundIdToName(int campgroundId);
         IList<Site> GetAvailableSitesOnCampground(string campgroundName, DateTime startDate, DateTime endDate);
         decimal GetPriceOfStay(Site site, DateTime startDate, DateTime endDate);
-        List<string> GetTop5Campsites(List<Site> allsites, DateTime startDate, DateTime endDate);
+        List<string> GetTop5Campsites(IList<Site> allsites, DateTime startDate, DateTime endDate);
     }
 }

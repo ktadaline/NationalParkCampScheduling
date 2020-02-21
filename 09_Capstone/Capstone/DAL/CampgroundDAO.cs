@@ -14,8 +14,11 @@ namespace Capstone.DAL
             connectionString = dbConnectionString;
         }
 
-        public IList<Campground> GetCampgrounds(string parkName)
+        public IList<Campground> GetCampgrounds(Park park)
         {
+
+            string parkName = park.parkName;
+
             List<Campground> campgrounds = new List<Campground>();
             try
             {
@@ -52,7 +55,7 @@ namespace Capstone.DAL
             return campgrounds;
         }
 
-        public List<string> campgroundsToString(List<Campground> campgrounds)
+        public List<string> campgroundsToString(IList<Campground> campgrounds)
         {
             List<string> campgroundStrings = new List<string>();
             Dictionary<int, string> months = new Dictionary<int, string>()

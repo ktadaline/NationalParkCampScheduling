@@ -64,7 +64,7 @@ WHERE campground.name = @campgroundName
             return campsites;
         }
 
-        public List<string> GetTop5Campsites(List<Site> allsites, DateTime startDate, DateTime endDate)
+        public List<string> GetTop5Campsites(IList<Site> allsites, DateTime startDate, DateTime endDate)
         {
             string isAccessible = "";
             string maxRV = "";
