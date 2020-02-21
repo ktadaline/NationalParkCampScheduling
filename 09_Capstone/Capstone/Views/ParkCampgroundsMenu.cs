@@ -72,6 +72,32 @@ namespace Capstone.Views
                 Console.WriteLine(top);
             }
 
+            Console.WriteLine("Select a campsite number");
+
+            string input2 = Console.ReadLine();
+            int inputNum = int.Parse(input2);
+            Site site = new Site();
+                
+               // siteList[inputNum -1];
+            //Site site;
+
+            foreach (Site fsite in siteList)
+            {
+                if (fsite.siteNumber == inputNum)
+                {
+                    site = fsite;
+                }
+            }
+
+
+            Pause("");
+
+
+            ReservationMenu pgm = new ReservationMenu(campgroundDAO, campsiteDAO, parkDAO, reservationDAO, site, arrivalDate, departureDate);
+            pgm.Run();
+
+
+
             Pause("");
             return true;
         }
@@ -82,7 +108,7 @@ namespace Capstone.Views
 
 
             //string displayParks = campgroundDAO.Display(campground);
-            Console.WriteLine("Add campground info here later");
+            Console.WriteLine("Check out the campsites at " + campground.campgroundName);
         }
 
         protected override void AfterDisplayMenu()

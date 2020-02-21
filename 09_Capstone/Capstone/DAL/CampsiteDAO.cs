@@ -24,7 +24,7 @@ namespace Capstone.DAL
                     conn.Open();
 
                     string sql =
-@"SELECT site.site_number
+@"SELECT *
 FROM SITE
 JOIN campground 
    ON site.campground_id = campground.campground_id
@@ -46,6 +46,7 @@ WHERE campground.name = @campgroundName
                     while (rdr.Read())
                     {
                         Site site = new Site();
+                        site.siteId = Convert.ToInt32(rdr["site_id"]);
                         site.campgroundId = Convert.ToInt32(rdr["campground_id"]);
                         site.siteNumber = Convert.ToInt32(rdr["site_number"]);
                         site.maxOccupancy = Convert.ToInt32(rdr["max_occupancy"]);
@@ -98,7 +99,10 @@ WHERE campground.name = @campgroundName
                     utilities = "N/A";
                 }
 
-                string s = campgroundIdToName(site.campgroundId) + site.siteNumber.ToString() + site.maxOccupancy.ToString() + isAccessible + maxRV + utilities + GetPriceOfStay(site, startDate, endDate).ToString();
+                //string s = campgroundIdToName(site.campgroundId) + site.siteNumber.ToString() + site.maxOccupancy.ToString() + isAccessible + maxRV + utilities + GetPriceOfStay(site, startDate, endDate).ToString();
+                string s = "Site number: " +site.siteNumber.ToString()+ " MaxOccupancy: " + site.maxOccupancy.ToString() + " Is Accessible: " + isAccessible + " Max RV: " +maxRV + " Utilities:  " + utilities + " Total Price: " + GetPriceOfStay(site, startDate, endDate).ToString();
+
+
                 Top5CampsitesString.Add(s);
 
             }
@@ -109,8 +113,10 @@ WHERE campground.name = @campgroundName
         public decimal GetPriceOfStay(Site site, DateTime startDate, DateTime endDate)
         {
             decimal priceOfStay = 0M;
-            TimeSpan durationOfStay = endDate - startDate;
-            int durationOfStayNum = Convert.ToInt32(durationOfStay);
+            //TimeSpan durationOfStay = endDate - startDate;
+            int duration = (int)(endDate - startDate).TotalDays;
+
+            int durationOfStayNum = Convert.ToInt32(duration);
             decimal dailyFee = 0M;
 
             try
@@ -133,7 +139,7 @@ WHERE site.site_id = @siteId and campground.campground_id = site.campground_id
 
                     while (rdr.Read())
                     {
-                        dailyFee = Convert.ToDecimal(rdr["campground.daily_fee"]);
+                        dailyFee = Convert.ToDecimal(rdr["daily_fee"]);
 
                     }
                 }
@@ -142,7 +148,12 @@ WHERE site.site_id = @siteId and campground.campground_id = site.campground_id
             {
                 Console.WriteLine(ex.Message);
             }
-            priceOfStay = durationOfStayNum * dailyFee;
+            priceOfStay = (decimal) durationOfStayNum * dailyFee;
+
+            //priceOfStay = dailyFee;
+
+
+
             return priceOfStay;
         }
         public string campgroundIdToName(int campgroundId)
