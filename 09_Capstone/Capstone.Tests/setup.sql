@@ -4,29 +4,27 @@ DELETE FROM site;
 DELETE FROM campground;
 DELETE FROM park;
 
--- Insert a fake department
+-- Insert a fake park
 INSERT INTO park
 (name, location, establish_date, area, visitors, description )
 VALUES
-('Crystal', 'Michigan', '2001-01-01', '45', '500', 'Fantastico'),
-('Math park', 'Ohio', '2004-10-01', '65000', '3', 'Gut'), 
-('Tech Elevator Park', 'Codeville', '2015-01-01', '6', 'The best');
+('Crystal', 'Michigan', '2000-01-01', 45, 500, 'Fantastico'),
+('Math Park', 'Ohio', '2004-10-01', 65000, 3, 'Gut'), 
+('Tech Elevator Park', 'Codeville', '2015-01-01', 6, 8, 'The best');
 
 
-DECLARE @newdpark_id int = (SELECT @@IDENTITY)
+DECLARE @newpark_id int = (SELECT @@IDENTITY)
 
--- Insert a fake employee
+-- Insert a fake campground
 INSERT INTO campground
 (park_id, name, open_from_mm, open_to_mm, daily_fee)
 VALUES
-((SELECT park.park_id FROM park WHERE park_name = 'Crystal'), 'Camp Blue', 4, 11, 10.00),
-((SELECT park.park_id FROM park WHERE park_name = 'Math park'), 'Camp Red', 5, 10, 100.00),
-((SELECT park.park_id FROM park WHERE park_name = 'Tech Elevator'), 'Camp Code', 1, 4, 15000.00)
+((SELECT park.park_id FROM park WHERE name = 'Crystal'), 'Camp Blue', 4, 11, 10.00),
+((SELECT park.park_id FROM park WHERE name = 'Math Park'), 'Camp Red', 5, 10, 100.00),
+((SELECT park.park_id FROM park WHERE name = 'Tech Elevator Park'), 'Camp Code', 1, 4, 15000.00)
 
 DECLARE @newcampground_id int = (SELECT @@IDENTITY)
 
-
---UPDATED Department ID so that its not hard coded
 
 --Insert a fake site
 
@@ -45,9 +43,9 @@ INSERT INTO reservation
 (site_id, name, from_date, to_date, create_date)
 Values
 
-((SELECT site_id FROM site WHERE site.site_number = 1), 'Bobby Jones', '2001-10-10','2001-10-12', CURRENT_TIMESTAMP),
+((SELECT site_id FROM site WHERE site.site_number = 1), 'Bobby Jones', '2021-10-10','2021-10-12', CURRENT_TIMESTAMP),
 ((SELECT site_id FROM site WHERE site.site_number = 2), 'Mike Morel', '2020-02-20','2020-02-25', CURRENT_TIMESTAMP),
-((SELECT site_id FROM site WHERE site.site_number = 3), 'Paris Hilton', '2020-03-04','2020-06-09', CURRENT_TIMESTAMP)
+((SELECT site_id FROM site WHERE site.site_number = 3), 'Paris Hilton', '2020-03-04','2020-03-09', CURRENT_TIMESTAMP)
 
 DECLARE @newreservation_id int = (SELECT @@IDENTITY)
 

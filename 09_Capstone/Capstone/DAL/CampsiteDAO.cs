@@ -106,7 +106,16 @@ WHERE campground.name = @campgroundName
                 Top5CampsitesString.Add(s);
 
             }
-            return Top5CampsitesString.GetRange(0, 5);
+
+            if (Top5CampsitesString.Count >= 5)
+            {
+                return Top5CampsitesString.GetRange(0, 5);
+            }
+            else
+            {
+                int n = Top5CampsitesString.Count;
+                return Top5CampsitesString.GetRange(0, n);
+            }
 
         }
 
@@ -153,36 +162,35 @@ WHERE site.site_id = @siteId and campground.campground_id = site.campground_id
             //priceOfStay = dailyFee;
 
 
-
             return priceOfStay;
         }
-        public string campgroundIdToName(int campgroundId)
-        {
-            string cn = "";
-            try
-            {
-                using (SqlConnection conn = new SqlConnection(connectionString))
-                {
-                    conn.Open();
+        //public string campgroundIdToName(int campgroundId)
+        //{
+        //    string cn = "";
+        //    try
+        //    {
+        //        using (SqlConnection conn = new SqlConnection(connectionString))
+        //        {
+        //            conn.Open();
 
-                    string sql = "SELECT Top1 campground.name FROM site Join Campground on Site.campground_id = campground.campground_id  WHERE site.campground_id=@campgroundId;";
+        //            string sql = "SELECT Top1 campground.name FROM site Join Campground on Site.campground_id = campground.campground_id  WHERE site.campground_id=@campgroundId;";
 
-                    SqlCommand cmd = new SqlCommand(sql, conn);
-                    cmd.Parameters.AddWithValue("@campgroundId", campgroundId);
+        //            SqlCommand cmd = new SqlCommand(sql, conn);
+        //            cmd.Parameters.AddWithValue("@campgroundId", campgroundId);
 
-                    SqlDataReader rdr = cmd.ExecuteReader();
+        //            SqlDataReader rdr = cmd.ExecuteReader();
 
-                    while (rdr.Read())
-                    {
-                        cn = Convert.ToString(rdr["campground.name"]);
-                    }
-                }
-            }
-            catch (SqlException ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            return cn;
-        }
+        //            while (rdr.Read())
+        //            {
+        //                cn = Convert.ToString(rdr["campground.name"]);
+        //            }
+        //        }
+        //    }
+        //    catch (SqlException ex)
+        //    {
+        //        Console.WriteLine(ex.Message);
+        //    }
+        //    return cn;
+        //}
     }
 }
