@@ -100,7 +100,7 @@ WHERE campground.name = @campgroundName
                 }
 
                 //string s = campgroundIdToName(site.campgroundId) + site.siteNumber.ToString() + site.maxOccupancy.ToString() + isAccessible + maxRV + utilities + GetPriceOfStay(site, startDate, endDate).ToString();
-                string s = "Site number: " +site.siteNumber.ToString()+ " MaxOccupancy: " + site.maxOccupancy.ToString() + " Is Accessible: " + isAccessible + " Max RV: " +maxRV + " Utilities:  " + utilities + " Total Price: " + GetPriceOfStay(site, startDate, endDate).ToString();
+                string s = "Site number: " +site.siteNumber.ToString()+ " MaxOccupancy: " + site.maxOccupancy.ToString() + " Is Accessible: " + isAccessible + " Max RV: " +maxRV + " Utilities:  " + utilities + " Total Price: " + GetPriceOfStay(site, startDate, endDate).ToString("C");
 
 
                 Top5CampsitesString.Add(s);

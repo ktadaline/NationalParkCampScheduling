@@ -16,7 +16,6 @@ namespace Capstone.DAL
 
         public IList<Campground> GetCampgrounds(Park park)
         {
-
             string parkName = park.parkName;
 
             List<Campground> campgrounds = new List<Campground>();
@@ -41,9 +40,7 @@ namespace Capstone.DAL
                         campground.openToDate = Convert.ToInt32(rdr["open_to_mm"]);
                         campground.dailyFee = Convert.ToDecimal(rdr["daily_fee"]);
 
-
                         campgrounds.Add(campground);
-
 
                     }
                 }
@@ -77,14 +74,12 @@ namespace Capstone.DAL
             int count = 1;
             foreach (Campground campground in campgrounds)
             {
-                string cg = count.ToString() + campground.campgroundName + months[campground.openFromDate] + months[campground.openToDate] + campground.dailyFee.ToString();
+                string cg = count.ToString() + campground.campgroundName + months[campground.openFromDate] + months[campground.openToDate] + campground.dailyFee.ToString("C");
                 campgroundStrings.Add(cg);
 
                 count++;
             }
             return campgroundStrings;
-
-
         }
 
     }

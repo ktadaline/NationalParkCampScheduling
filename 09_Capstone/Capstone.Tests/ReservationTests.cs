@@ -9,7 +9,7 @@ using System.Transactions;
 namespace Capstone.Tests
 {
     [TestClass]
-    public class ParkTests
+    public class ReservationTests
     {
         private TransactionScope transaction = null;
         private string connectionString = "Server=.\\SqlExpress;Database=npcampground;Trusted_Connection=True;";
@@ -17,7 +17,6 @@ namespace Capstone.Tests
         private int newcampground_id;
         private int newsite_id;
         private int newreservation_id;
-
 
         //SELECT @newpark_id as newpark_id, @newcampground_id as newcampground_id, @newsite_id as newsite_id, @newreservation_id as newreservation_id
 
@@ -31,7 +30,6 @@ namespace Capstone.Tests
             {
                 setUpSql = rdr.ReadToEnd();
             }
-
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
@@ -53,41 +51,21 @@ namespace Capstone.Tests
             transaction.Dispose();
         }
 
-       
-        [TestMethod]
-        public void GetParksTest()
-        {
-            ParkDAO parkDAO = new ParkDAO(connectionString);
-            List<Park> parks = parkDAO.GetParks();
-            Assert.AreEqual(3, parks.Count);
-        }
-
-        //List<string> DisplayParkList(List<Park> parks)
+        //int makeReservation(Site site, string reserversName, DateTime startDate, DateTime endDate)
 
         [TestMethod]
-        public void DisplayParkTest()
+        public void makeReservationTest()
         {
-            ParkDAO parkDAO = new ParkDAO(connectionString);
-            List<Park> parks = parkDAO.GetParks();
-            List<string> parksStrings = parkDAO.DisplayParkList(parks);
-            Assert.AreEqual(3, parksStrings.Count);
-        }
-
-        //public string DisplayParkDetails(Park park)
-
-        [TestMethod]
-        public void DisplayParkDetailsTest()
-        {
-            ParkDAO parkDAO = new ParkDAO(connectionString);
-            List<Park> parks = parkDAO.GetParks();
-            string parkDetails = parkDAO.DisplayParkDetails(parks[0]);
-
-            string displayPark = "Crystal" + "\nLocation:  " + "Michigan" + "\nEstablished:  " + "1/1/2000 12:00:00 AM" + "\nArea:  " + "45" + " sq km \nAnnual Visitors:  " + "500" + "\n" + "Fantastico";
+            string Camp = "Camp Blue";
+            DateTime StartDate = new DateTime(2020, 1, 2);
+            DateTime EndDate = new DateTime(2020, 1, 3);
+            CampsiteDAO campsiteDAO = new CampsiteDAO(connectionString);
+            IList<Site> sites = campsiteDAO.GetAvailableSitesOnCampground(Camp, StartDate, EndDate);
+            ReservationDAO reservationDAO = new ReservationDAO(connectionString);
+            int confirmationNo = reservationDAO.makeReservation(sites[0], "John Brown", StartDate, EndDate);
             
-            Assert.AreEqual(displayPark, parkDetails);
-
+            Assert.IsTrue(confirmationNo > newreservation_id);
         }
-
 
     }
 }

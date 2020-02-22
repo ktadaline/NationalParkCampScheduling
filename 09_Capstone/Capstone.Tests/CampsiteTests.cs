@@ -75,8 +75,9 @@ namespace Capstone.Tests
             DateTime EndDate = new DateTime(2020, 3, 3);
             IList<Site> sites = campsiteDAO.GetAvailableSitesOnCampground(Camp, StartDate, EndDate);
             List<string> top5 = campsiteDAO.GetTop5Campsites(sites, StartDate, EndDate);
-            string expectedValue = "Site number: 2 MaxOccupancy: 6 Is Accessible: Yes Max RV: 25 Utilities: Yes Total Price: 100.0000";
-            StringAssert.Equals(expectedValue, top5[0]);
+            string s = "Site number: " + "2" + " MaxOccupancy: " + "6" + " Is Accessible: " + "Yes" + " Max RV: " + "25" + " Utilities:  " + "Yes" + " Total Price: " + "$100.00";
+            Assert.AreEqual(s, top5[0]);
+         
         }
 
         //decimal GetPriceOfStay(Site site, DateTime startDate, DateTime endDate)
@@ -95,123 +96,5 @@ namespace Capstone.Tests
 
         }
 
-        //   public string campgroundIdToName(int campgroundId)
-
-        
-        //[TestMethod]
-        //public void AssignEmployeeToProjectTest()
-        //{
-        //    ProjectSqlDAO dao = new ProjectSqlDAO(connectionString);
-
-        //    bool employeeIsAssigned = dao.AssignEmployeeToProject(newproject_id, newemployee_id);
-
-        //    Assert.AreEqual(true, employeeIsAssigned);
-        //}
-
-        ////RemoveEmployeeFromProject
-
-        //[TestMethod]
-        //public void RemoveEmployeeFromProjectTest()
-        //{
-        //    ProjectSqlDAO dao = new ProjectSqlDAO(connectionString);
-
-        //    bool employeeIsRemoved = dao.RemoveEmployeeFromProject(newproject_id, newemployee_id);
-
-        //    Assert.AreEqual(true, employeeIsRemoved);
-        //}
-
-        //[TestMethod]
-        //public void CreateProjectTest()
-        //{
-        //    ProjectSqlDAO dao = new ProjectSqlDAO(connectionString);
-
-        //    Project newproject = new Project()
-        //    {
-        //        Name = "So so project",
-        //        StartDate = new DateTime(2016, 7, 15),
-        //        EndDate = new DateTime(2018, 7, 15),
-        //    };
-
-        //    int projectid = dao.CreateProject(newproject);
-
-        //    bool isAdded = projectid > newproject_id;
-
-        //    Assert.IsTrue(isAdded);
-        //}
-        ////add count test later
-        //[TestMethod]
-        //public void GetNumberOfDepartmentsTest()
-        //{
-        //    DepartmentSqlDAO dao = new DepartmentSqlDAO(connectionString);
-
-        //    IList<Department> departments = dao.GetDepartments();
-        //    Assert.AreEqual(3, departments.Count);
-        //}
-
-        //[TestMethod]
-        //public void CreateDepartmentTest()
-        //{
-        //    DepartmentSqlDAO dao = new DepartmentSqlDAO(connectionString);
-
-        //    Department department = new Department()
-        //    {
-        //        Name = "Transponders Department",
-        //    };
-
-        //    int departmentId = dao.CreateDepartment(department);
-
-        //    bool isAdded = departmentId > newdepartment_id;
-
-        //    Assert.IsTrue(isAdded);
-        //}
-
-        //[TestMethod]
-
-        //public void UpdateDepartmentTest()
-        //{
-        //    DepartmentSqlDAO dao = new DepartmentSqlDAO(connectionString);
-
-        //    Department newdepartment = new Department()
-        //    {
-        //        Name = "xyz",
-        //    };
-
-        //    bool departmentIsUpdated = dao.UpdateDepartment(newdepartment);
-
-        //    Assert.AreEqual(true, departmentIsUpdated);
-
-        //}
-        //[TestMethod]
-        //public void GetNumberOfEmployeesTest()
-        //{
-        //    EmployeeSqlDAO dao = new EmployeeSqlDAO(connectionString);
-
-        //    IList<Employee> employees = dao.GetAllEmployees();
-        //    Assert.AreEqual(3, employees.Count);
-        //}
-
-        //[TestMethod]
-
-        //public void EmployeeSearchResultNumberTest()
-        //{
-
-        //    EmployeeSqlDAO dao = new EmployeeSqlDAO(connectionString);
-
-        //    IList<Employee> employees = dao.Search("Rachel", "H");
-        //    Assert.AreEqual(1, employees.Count);
-
-
-        //}
-        //[TestMethod]
-        //public void EmployeesWithoutProjectsTests()
-        //{
-
-        //    EmployeeSqlDAO dao = new EmployeeSqlDAO(connectionString);
-
-        //    IList<Employee> employees = dao.GetEmployeesWithoutProjects();
-        //    Assert.AreEqual(0, employees.Count);
-
-
-        //}
     }
 }

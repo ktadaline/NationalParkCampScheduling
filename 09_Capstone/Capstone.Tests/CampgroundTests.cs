@@ -70,7 +70,7 @@ namespace Capstone.Tests
         //List<string> campgroundsToString(IList<Campground> campgrounds)
 
         [TestMethod]
-        public void CampgroundsToStringTest()
+        public void CampgroundsToStringCountTest()
         {
             ParkDAO parkDAO = new ParkDAO(connectionString);
             CampgroundDAO campgroundDAO = new CampgroundDAO(connectionString);
@@ -81,6 +81,21 @@ namespace Capstone.Tests
             List<string> campground = campgroundDAO.campgroundsToString(campgrounds);
 
             Assert.AreEqual(1, campground.Count);
+        }
+
+
+        [TestMethod]
+        public void CampgroundsToStringTest()
+        {
+            ParkDAO parkDAO = new ParkDAO(connectionString);
+            CampgroundDAO campgroundDAO = new CampgroundDAO(connectionString);
+
+            List<Park> parks = parkDAO.GetParks();
+            IList<Campground> campgrounds = campgroundDAO.GetCampgrounds(parks[0]);
+            List<string> campground = campgroundDAO.campgroundsToString(campgrounds);
+            string cg = "1" + "Camp Blue" + "April" + "November" + "$10.00";
+
+            Assert.AreEqual(cg, campground[0]);
         }
 
     }
