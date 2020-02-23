@@ -69,7 +69,7 @@ namespace Capstone.Views
                 if (menuOptions.ContainsKey(choice))
                 {
                     if (choice == quitKey)
-                    {
+                    { 
                         break;
                     }
                     if (!ExecuteSelection(choice))

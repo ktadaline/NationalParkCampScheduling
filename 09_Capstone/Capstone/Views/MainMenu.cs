@@ -62,6 +62,10 @@ namespace Capstone.Views
         /// <returns></returns>
         protected override bool ExecuteSelection(string choice)
         {
+            if (choice.ToUpper() == "Q")
+            {
+                System.Environment.Exit(0);
+            }
 
             List<Park> parkSelection = parkDAO.GetParks();
             

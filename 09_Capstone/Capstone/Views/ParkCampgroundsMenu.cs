@@ -96,13 +96,81 @@ namespace Capstone.Views
         {
             Console.WriteLine("What is your desired arrival date?");
             string input1 = Console.ReadLine();
+            //try
+            //{
+            //    arrivalDate = DateTime.Parse(input1);
+            //}
+            //catch (System.FormatException)
+            //{
+            //    Console.WriteLine("Try again! Not a valid date format.");
+            //}
+           // arrivalDate = DateTime.Parse(input1);
 
-            arrivalDate = DateTime.Parse(input1);
+            for (int retries = 0; ; retries++)
+            {
+                try
+                {
+                    arrivalDate = DateTime.Parse(input1);
+                    break;
+                }
+                catch (System.FormatException ex)
+                {
+                    if (retries <= 3)
+                    {
+                        Console.WriteLine("Try again! Not a valid date format.");
+                        Console.WriteLine("What is your desired arrival date?");
+                        input1 = Console.ReadLine();
+                        arrivalDate = DateTime.Parse(input1);
+                        continue;
 
+                    }
+                    else
+                    {
+                        Console.WriteLine("Too many incorrect attempts!");
+                        throw ex;
+                    }
+                }
+            }
             Console.WriteLine("What is your desired departure date?");
             string input2 = Console.ReadLine();
-            departureDate = DateTime.Parse(input2);
+            //try
+            //{
+            //    departureDate = DateTime.Parse(input2);
+            //}
+            //catch (System.FormatException)
+            //{
+            //    Console.WriteLine("Try again! Not a valid date format.");
+            //}
+            ////departureDate = DateTime.Parse(input2);
 
+            for (int retries = 0; ; retries++)
+            {
+                try
+                {
+                    departureDate = DateTime.Parse(input2);
+                    break;
+                }
+                catch (System.FormatException ex)
+                {
+                    if (retries <= 3)
+                    {
+                        Console.WriteLine("Try again! Not a valid date format.");
+                        Console.WriteLine("What is your desired departure date?");
+                        input2 = Console.ReadLine();
+                        departureDate = DateTime.Parse(input2);
+                        continue;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Too many incorrect attempts!");
+                        throw ex;
+                    }
+                }
+            }
+
+            //Console.WriteLine("What is your desired departure date?");
+            //string input2 = Console.ReadLine();
+            //departureDate = DateTime.Parse(input2);     //
             siteList = campsiteDAO.GetAvailableSitesOnCampground(campground.campgroundName, arrivalDate, departureDate);
       
             for (int retries = 0; ; retries++)
@@ -176,11 +244,24 @@ namespace Capstone.Views
         private void PrintHeader()
         {
             SetColor(ConsoleColor.Magenta);
-            Console.WriteLine(Figgle.FiggleFonts.Standard.Render($"Available Campsites at"));
+            Console.WriteLine(Figgle.FiggleFonts.Standard.Render($"Available Campsites"));
+
+            //Console.WriteLine($"Find available campsites at {campground.campgroundName}: ");
+            //Console.WriteLine();
+            if (campground.campgroundName.Length > 20)
+            {
+                //The Unnamed Primitive Campsites
+                Console.WriteLine(Figgle.FiggleFonts.Straight.Render($"at {campground.campgroundName}"));
+            }
+            else
+            {
+                Console.WriteLine(Figgle.FiggleFonts.Standard.Render($"at {campground.campgroundName}"));
+            }
+            //.Render($"{campground.campgroundName}"));
+            //SMSlant.Render($"{campground.campgroundName}"));
+
             //Console.WriteLine(Figgle.FiggleFonts.Straight.Render($"{campground.campgroundName}"));
-
-            Console.WriteLine(Figgle.FiggleFonts.Straight.Render($"{campground.campgroundName}"));
-
+            //SlantSmall
             //mini
             //pepper
             //threepoint
