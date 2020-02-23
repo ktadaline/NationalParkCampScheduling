@@ -99,9 +99,11 @@ WHERE campground.name = @campgroundName
                     utilities = "N/A";
                 }
 
-                //string s = campgroundIdToName(site.campgroundId) + site.siteNumber.ToString() + site.maxOccupancy.ToString() + isAccessible + maxRV + utilities + GetPriceOfStay(site, startDate, endDate).ToString();
-                string s = "Site number: " +site.siteNumber.ToString()+ " MaxOccupancy: " + site.maxOccupancy.ToString() + " Is Accessible: " + isAccessible + " Max RV: " +maxRV + " Utilities:  " + utilities + " Total Price: " + GetPriceOfStay(site, startDate, endDate).ToString("C");
+                string  s = $"{site.siteNumber.ToString(),-15}{site.maxOccupancy.ToString(),-15}{isAccessible,-15}{maxRV,-15}{utilities,-15}{GetPriceOfStay(site, startDate, endDate).ToString("C"), -15}";
 
+                //string s = $"Site number: {site.siteNumber.ToString(),-30}MaxOccupancy: {site.maxOccupancy.ToString(),-15}Is Accessible: {isAccessible,-15}Max RV: {maxRV,-15}Utilities: {utilities,-15}Total Price: {GetPriceOfStay(site, startDate, endDate).ToString("C"),-15}";
+
+                //string s = "Site number: " +site.siteNumber.ToString()+ " MaxOccupancy: " + site.maxOccupancy.ToString() + " Is Accessible: " + isAccessible + " Max RV: " +maxRV + " Utilities:  " + utilities + " Total Price: " + GetPriceOfStay(site, startDate, endDate).ToString("C");
 
                 Top5CampsitesString.Add(s);
 
@@ -126,6 +128,13 @@ WHERE campground.name = @campgroundName
             int duration = (int)(endDate - startDate).TotalDays;
 
             int durationOfStayNum = Convert.ToInt32(duration);
+
+            if (durationOfStayNum <= 0)
+            {
+                throw new InvalidDateSelectionException("Can't select zero or negative days");
+            }
+            
+
             decimal dailyFee = 0M;
 
             try

@@ -17,8 +17,19 @@ namespace Capstone.Views
         protected IParkDAO parkDAO;
         protected IReservationDAO reservationDAO;
         private Campground campground;
+        private List<string> top5Camp;
+        IList<Site> siteList;
+        DateTime arrivalDate;
+        DateTime departureDate;
 
+        override public string SelectionText
+        {
+            get 
+            {
+                return $"\r\nPlease select a campsite to reserve:\n\n{displayHeadingText()}";
+            }
 
+        }
         /// <summary>
         /// Constructor adds items to the top-level menu
         /// </summary>
@@ -35,8 +46,9 @@ namespace Capstone.Views
 
         protected override void SetMenuOptions()
         {
-            this.menuOptions.Add("1", "View Available Campsites");
-            //this.menuOptions.Add("2", "Do Option 2 and return to Main");
+            Console.Clear();
+            PrintHeader();
+            InitializeSetupInfo();
             this.menuOptions.Add("B", "Back to Main Menu");
             this.quitKey = "B";
         }
@@ -49,50 +61,28 @@ namespace Capstone.Views
         /// <returns></returns>
         protected override bool ExecuteSelection(string choice)
         {
-
-
-
-
-            Console.WriteLine("What is your desired arrival date?");
-            string input = Console.ReadLine();
-
-            DateTime arrivalDate = DateTime.Parse(input);
-
-            Console.WriteLine("What is your desired departure date?");
-
-            input = Console.ReadLine();
-
-            DateTime departureDate = DateTime.Parse(input);
-
-            IList<Site> siteList = campsiteDAO.GetAvailableSitesOnCampground(campground.campgroundName, arrivalDate, departureDate);
-
-            List<string> top5Camp = campsiteDAO.GetTop5Campsites(siteList, arrivalDate, departureDate);
-            foreach (string top in top5Camp)
-            {
-                Console.WriteLine(top);
-            }
-
-            Console.WriteLine("Select a campsite number");
-
-            string input2 = Console.ReadLine();
-            int inputNum = int.Parse(input2);
+            int inputNum = int.Parse(choice);
             Site site = new Site();
-                
-               // siteList[inputNum -1];
-            //Site site;
 
-            foreach (Site fsite in siteList)
+            for (int i = 1; i <= siteList.Count; i++) 
             {
-                if (fsite.siteNumber == inputNum)
+                if (i == inputNum)
                 {
-                    site = fsite;
+                    site = siteList[i - 1];
                 }
             }
+            //foreach (Site fsite in siteList)
+            //{
 
 
-            Pause("");
-
-
+            //    if (fsite.siteNumber == inputNum)
+            //    {
+            //        site = fsite;
+            //    }
+            //}
+            //Pause("");
+            Console.Write($" Press Enter to continue with reservation on Site Number {site.siteNumber}...");
+            Console.ReadLine();
             ReservationMenu pgm = new ReservationMenu(campgroundDAO, campsiteDAO, parkDAO, reservationDAO, site, arrivalDate, departureDate);
             pgm.Run();
 
@@ -102,28 +92,100 @@ namespace Capstone.Views
             return true;
         }
 
+        public void InitializeSetupInfo()
+        {
+            Console.WriteLine("What is your desired arrival date?");
+            string input1 = Console.ReadLine();
+
+            arrivalDate = DateTime.Parse(input1);
+
+            Console.WriteLine("What is your desired departure date?");
+            string input2 = Console.ReadLine();
+            departureDate = DateTime.Parse(input2);
+
+            siteList = campsiteDAO.GetAvailableSitesOnCampground(campground.campgroundName, arrivalDate, departureDate);
+      
+            for (int retries = 0; ; retries++)
+            {
+                try
+                {
+                    top5Camp = campsiteDAO.GetTop5Campsites(siteList, arrivalDate, departureDate);
+                    break;
+                }
+                catch (InvalidDateSelectionException ex)
+                {
+                    if (retries <= 3)
+                    {
+                        Console.WriteLine("Try again. Stay must be at least one night.");
+                        Console.WriteLine("What is your desired arrival date?");
+                        input1 = Console.ReadLine();
+
+                        arrivalDate = DateTime.Parse(input1);
+
+                        Console.WriteLine("What is your desired departure date?");
+
+                        input2 = Console.ReadLine();
+
+                        departureDate = DateTime.Parse(input2);
+
+                        siteList = campsiteDAO.GetAvailableSitesOnCampground(campground.campgroundName, arrivalDate, departureDate);
+                        continue;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Too many incorrect attempts!");
+                        throw ex;
+                    }
+
+                }
+            }
+            int count = 1;
+            foreach (string top in top5Camp)
+            {
+                this.menuOptions.Add(count.ToString(), top5Camp[count - 1]);
+                count++;
+            }
+        }
+
         protected override void BeforeDisplayMenu()
         {
             PrintHeader();
 
-
-            //string displayParks = campgroundDAO.Display(campground);
-            Console.WriteLine("Check out the campsites at " + campground.campgroundName);
         }
+        //string  s = $"Site number: {site.siteNumber.ToString(),-5}MaxOccupancy: {site.maxOccupancy.ToString(),-5}Is Accessible: {isAccessible,-5}Max RV: {maxRV,-5}Utilities: {utilities,-5}Total Price: {GetPriceOfStay(site, startDate, endDate).ToString("C"), -5}";
+
+        private string displayHeadingText()
+        {
+
+
+            string  s = $"    Site number:  MaxOccupancy:   Is Accessible: Max RV:        Utilities:     Total Price: ";
+
+                       return s;
+        }
+
+
 
         protected override void AfterDisplayMenu()
         {
             base.AfterDisplayMenu();
             SetColor(ConsoleColor.Cyan);
-            Console.WriteLine("Display some data here, AFTER the sub-menu is shown....");
+            //Console.WriteLine("Display some data here, AFTER the sub-menu is shown....");
             ResetColor();
         }
 
         private void PrintHeader()
         {
             SetColor(ConsoleColor.Magenta);
-            Console.WriteLine(Figgle.FiggleFonts.Standard.Render("Sub-Menu 1"));
+            Console.WriteLine(Figgle.FiggleFonts.Standard.Render($"Available Campsites at"));
+            //Console.WriteLine(Figgle.FiggleFonts.Straight.Render($"{campground.campgroundName}"));
+
+            Console.WriteLine(Figgle.FiggleFonts.Straight.Render($"{campground.campgroundName}"));
+
+            //mini
+            //pepper
+            //threepoint
             ResetColor();
         }
+
     }
 }

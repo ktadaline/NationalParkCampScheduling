@@ -33,6 +33,8 @@ namespace Capstone.Views
         /// </summary>
         public string Title { get; set; }
 
+        virtual public string SelectionText { get; set; } = "\r\nPlease make a selection:";
+
         /// <summary>
         /// Constructor - pass in model data here
         /// </summary>
@@ -45,7 +47,7 @@ namespace Capstone.Views
         /// <summary>
         /// Run starts the menu loop. You cannot override Run.
         /// </summary>
-        public void Run()
+        virtual public void Run()
         {
             SetMenuOptions();
             while (true)
@@ -54,7 +56,7 @@ namespace Capstone.Views
 
                 BeforeDisplayMenu();
 
-                Console.WriteLine("\r\nPlease make a selection:");
+                Console.WriteLine(SelectionText);
                 foreach (KeyValuePair<string, string> menuItem in menuOptions)
                 {
                     Console.WriteLine($"{menuItem.Key} - {menuItem.Value}");
@@ -107,6 +109,7 @@ namespace Capstone.Views
         /// <param name="choice">The menu option (key) selected by the user</param>
         /// <returns>True to keep executing the menu (loop), False to exit this menu (break)</returns>
         abstract protected bool ExecuteSelection(string choice);
+
 
         /// <summary>
         /// This method must be implemented to add options to the menuOptions dictionary.

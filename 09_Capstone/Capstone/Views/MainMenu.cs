@@ -20,6 +20,8 @@ namespace Capstone.Views
         protected ICampsiteDAO campsiteDAO;
         protected IParkDAO parkDAO;
         protected IReservationDAO reservationDAO;
+        override public string SelectionText { get; set; } = "\r\nSelect a park to view campgrounds:";
+
 
 
         /// <summary>
@@ -43,7 +45,7 @@ namespace Capstone.Views
             //List<string> displayParks = parkDAO.DisplayParkList(viewParks);
             foreach (Park park in viewParks)
             {
-                menuOptions.Add(Count.ToString(), park.parkName); ;
+                menuOptions.Add(Count.ToString(), park.parkName); 
                 Count++;
             }
             //this.menuOptions.Add("1", "View Available Parks");
@@ -171,7 +173,6 @@ namespace Capstone.Views
 
         }
 
-
         protected override void BeforeDisplayMenu()
         {
             PrintHeader();
@@ -181,7 +182,9 @@ namespace Capstone.Views
         private void PrintHeader()
         {
             SetColor(ConsoleColor.Yellow);
-            Console.WriteLine(Figgle.FiggleFonts.Standard.Render("My Program"));
+            Console.WriteLine(Figgle.FiggleFonts.Standard.Render("National Park"));
+            Console.WriteLine(Figgle.FiggleFonts.Standard.Render("System"));
+
             ResetColor();
         }
     }

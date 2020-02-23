@@ -74,7 +74,11 @@ namespace Capstone.DAL
             int count = 1;
             foreach (Campground campground in campgrounds)
             {
-                string cg = count.ToString() + campground.campgroundName + months[campground.openFromDate] + months[campground.openToDate] + campground.dailyFee.ToString("C");
+                //string cg = count.ToString() + campground.campgroundName + months[campground.openFromDate] + months[campground.openToDate] + campground.dailyFee.ToString("C");
+                //string cg = campground.campgroundName + "\t" + months[campground.openFromDate] + "\t" + months[campground.openToDate] + "\t" + campground.dailyFee.ToString("C");
+                string cg = $"{campground.campgroundName,-30} {months[campground.openFromDate],-15} {months[campground.openToDate],-15} {campground.dailyFee.ToString("C"),-15}";
+                //display += $"\t\t\t\t{product.SlotLocation,-5} {product.ProductName, -20} {product.Price.ToString("C"), -13} {product.QuantityLeft.ToString(), -20} \n";
+
                 campgroundStrings.Add(cg);
 
                 count++;

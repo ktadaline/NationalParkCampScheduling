@@ -82,7 +82,7 @@ namespace Capstone.Tests
             List<Park> parks = parkDAO.GetParks();
             string parkDetails = parkDAO.DisplayParkDetails(parks[0]);
 
-            string displayPark = "Crystal" + "\nLocation:  " + "Michigan" + "\nEstablished:  " + "1/1/2000 12:00:00 AM" + "\nArea:  " + "45" + " sq km \nAnnual Visitors:  " + "500" + "\n" + "Fantastico";
+            string displayPark = "Crystal" + " Park\nLocation:  " + "Michigan" + "\nEstablished:  " + "1/1/2000 12:00:00 AM" + "\nArea:  " + "45" + " sq km \nAnnual Visitors:  " + "500" + "\n\n" + "Fantastico";
             
             Assert.AreEqual(displayPark, parkDetails);
 

@@ -15,6 +15,8 @@ namespace Capstone.Views
         private Site campsite;
         private DateTime startDate;
         private DateTime endDate;
+        override public string SelectionText { get; set; } = "\r\nPlease make a selection:";
+
 
 
         /// <summary>
@@ -104,7 +106,7 @@ namespace Capstone.Views
         private void PrintHeader()
         {
             SetColor(ConsoleColor.Magenta);
-            Console.WriteLine(Figgle.FiggleFonts.Standard.Render("Sub-Menu 1"));
+            Console.WriteLine(Figgle.FiggleFonts.Standard.Render("Book Reservation"));
             ResetColor();
         }
     }
