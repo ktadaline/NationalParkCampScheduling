@@ -5,6 +5,7 @@ using System.Text;
 
 namespace Capstone.Views
 {
+    //Reserveation menu
     public class ReservationMenu : CLIMenu
     {
         // Store any private variables, including DAOs here....
@@ -38,12 +39,14 @@ namespace Capstone.Views
             this.endDate = endDate;
         }
 
+        //menu options
+
         protected override void SetMenuOptions()
         {
             //this.menuOptions.Add("1", "View Available Campsites");
             //this.menuOptions.Add("2", "Do Option 2 and return to Main");
-            this.menuOptions.Add("B", "Back to Main Menu");
-            this.quitKey = "B";
+           // this.menuOptions.Add("1", "Back to Main Menu");
+            //this.quitKey = "1";
         }
 
         /// <summary>

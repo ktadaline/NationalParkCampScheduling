@@ -96,6 +96,8 @@ namespace Capstone.Views
             return true;
         }
 
+        //display campground settings
+
         private string displayHeadingText()
         {
             string campgroundNameCategory = $"Campground:";

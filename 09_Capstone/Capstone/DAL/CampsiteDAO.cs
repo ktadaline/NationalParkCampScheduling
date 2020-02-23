@@ -14,6 +14,7 @@ namespace Capstone.DAL
             connectionString = dbConnectionString;
         }
 
+        //retrieving List of available campsites
         public IList<Site> GetAvailableSitesOnCampground(string campgroundName, DateTime startDate, DateTime endDate)
         {
             List<Site> campsites = new List<Site>();
@@ -22,7 +23,7 @@ namespace Capstone.DAL
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-
+                    //query 
                     string sql =
 @"SELECT *
 FROM SITE
@@ -65,6 +66,7 @@ WHERE campground.name = @campgroundName
             return campsites;
         }
 
+        //TOP 5 campsites
         public List<string> GetTop5Campsites(IList<Site> allsites, DateTime startDate, DateTime endDate)
         {
             string isAccessible = "";
@@ -120,7 +122,7 @@ WHERE campground.name = @campgroundName
             }
 
         }
-
+        //Determining the price of stay
         public decimal GetPriceOfStay(Site site, DateTime startDate, DateTime endDate)
         {
             decimal priceOfStay = 0M;

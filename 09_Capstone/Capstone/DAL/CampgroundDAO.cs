@@ -9,14 +9,17 @@ namespace Capstone.DAL
     {
         private string connectionString;
 
+        //setting up connection string to database
         public CampgroundDAO(string dbConnectionString)
         {
             connectionString = dbConnectionString;
         }
 
+        //retrieving list of campgrounds
         public IList<Campground> GetCampgrounds(Park park)
         {
             string parkName = park.parkName;
+
 
             List<Campground> campgrounds = new List<Campground>();
             try
@@ -24,7 +27,7 @@ namespace Capstone.DAL
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-
+                    //query to retrieve campgrounds from databse
                     string sql = "SELECT * FROM campground Join park on park.park_id =campground.park_id WHERE park.name = @parkName;";
                     SqlCommand cmd = new SqlCommand(sql, conn);
                     cmd.Parameters.AddWithValue("@parkName", parkName);

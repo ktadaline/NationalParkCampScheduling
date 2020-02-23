@@ -16,6 +16,7 @@ namespace Capstone.DAL
             connectionString = dbConnectionString;
         }
 
+        //Creating a list of Parks
         public List<Park> GetParks()
         {
             List<Park> parks = new List<Park>();
@@ -51,7 +52,7 @@ namespace Capstone.DAL
             }
             return parks;
         }
-
+        //Creating Display park list
         public List<string> DisplayParkList(List<Park> parks)
         {
             int count = 1;
@@ -64,6 +65,8 @@ namespace Capstone.DAL
             }
             return displayparklist;
         }
+
+        //Park details to display
         public string DisplayParkDetails(Park park)
         {
 

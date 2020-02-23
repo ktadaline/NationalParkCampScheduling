@@ -22,6 +22,7 @@ namespace Capstone.Views
         DateTime arrivalDate;
         DateTime departureDate;
 
+        //display setting
         override public string SelectionText
         {
             get 
@@ -92,6 +93,7 @@ namespace Capstone.Views
             return true;
         }
 
+        //Arrival date display settings
         public void InitializeSetupInfo()
         {
             Console.WriteLine("What is your desired arrival date?");
