@@ -55,6 +55,7 @@ namespace Capstone.DAL
             return campgrounds;
         }
 
+        //Open from and open to dates, getting numbers to months
         public List<string> campgroundsToString(IList<Campground> campgrounds)
         {
             List<string> campgroundStrings = new List<string>();
