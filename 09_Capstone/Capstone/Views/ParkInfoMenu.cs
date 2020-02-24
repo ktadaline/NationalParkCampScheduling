@@ -52,12 +52,6 @@ namespace Capstone.Views
                 menuOptions.Add(count.ToString(), listCGstrings[count-1]);
                 count++;
             }
-
-            //Campground campground = listCG[inputNum - 1];
-
-
-            //this.menuOptions.Add("1", "View Campgrounds");
-            //this.menuOptions.Add("2", "Do Option 2 and return to Main");
             this.menuOptions.Add("B", "Back to Main Menu");
             this.quitKey = "B";
         }
@@ -72,20 +66,9 @@ namespace Capstone.Views
         {
             IList<Campground> listCG = campgroundDAO.GetCampgrounds(park);
             
-        //    List<string> listCGstrings = campgroundDAO.campgroundsToString(listCG);
-
-        //    Console.WriteLine("Select a campground:");
-        //    foreach (string s in listCGstrings)
-        //    {
-        //        Console.WriteLine(s);
-        //    }
-
-            //choice = Console.ReadLine();
             int inputNum = int.Parse(choice);
             Campground campground = listCG[inputNum - 1];
 
-
-            //Pause("");
             Console.Write($" Press Enter to see campsite availablity for {campground.campgroundName}...");
             Console.ReadLine();
 
@@ -122,7 +105,6 @@ namespace Capstone.Views
         {
             base.AfterDisplayMenu();
             SetColor(ConsoleColor.Cyan);
-            //Console.WriteLine("Display some data here, AFTER the sub-menu is shown....");
             Console.WriteLine();
             ResetColor();
         }
@@ -131,9 +113,6 @@ namespace Capstone.Views
         {
             SetColor(ConsoleColor.Magenta);
             Console.WriteLine(Figgle.FiggleFonts.Standard.Render($"{park.parkName} Park"));
-            //Console.WriteLine(Figgle.FiggleFonts.Standard.Render($"Campgrounds"));
-            //Figgle.FiggleFonts.Pebbles
-            //Console.WriteLine(Figgle.FiggleFonts.Standard.Render($"of {park.parkName} Park"));
 
             ResetColor();
         }

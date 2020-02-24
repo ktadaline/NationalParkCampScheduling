@@ -103,10 +103,7 @@ WHERE campground.name = @campgroundName
 
                 string  s = $"{site.siteNumber.ToString(),-15}{site.maxOccupancy.ToString(),-15}{isAccessible,-15}{maxRV,-15}{utilities,-15}{GetPriceOfStay(site, startDate, endDate).ToString("C"), -15}";
 
-                //string s = $"Site number: {site.siteNumber.ToString(),-30}MaxOccupancy: {site.maxOccupancy.ToString(),-15}Is Accessible: {isAccessible,-15}Max RV: {maxRV,-15}Utilities: {utilities,-15}Total Price: {GetPriceOfStay(site, startDate, endDate).ToString("C"),-15}";
-
-                //string s = "Site number: " +site.siteNumber.ToString()+ " MaxOccupancy: " + site.maxOccupancy.ToString() + " Is Accessible: " + isAccessible + " Max RV: " +maxRV + " Utilities:  " + utilities + " Total Price: " + GetPriceOfStay(site, startDate, endDate).ToString("C");
-
+             
                 Top5CampsitesString.Add(s);
 
             }
@@ -133,7 +130,7 @@ WHERE campground.name = @campgroundName
 
             if (durationOfStayNum <= 0)
             {
-                throw new InvalidDateSelectionException("Can't select zero or negative days");
+                throw new InvalidDateRangeSelectionException("Can't select zero or negative days");
             }
             
 
@@ -175,33 +172,6 @@ WHERE site.site_id = @siteId and campground.campground_id = site.campground_id
 
             return priceOfStay;
         }
-        //public string campgroundIdToName(int campgroundId)
-        //{
-        //    string cn = "";
-        //    try
-        //    {
-        //        using (SqlConnection conn = new SqlConnection(connectionString))
-        //        {
-        //            conn.Open();
-
-        //            string sql = "SELECT Top1 campground.name FROM site Join Campground on Site.campground_id = campground.campground_id  WHERE site.campground_id=@campgroundId;";
-
-        //            SqlCommand cmd = new SqlCommand(sql, conn);
-        //            cmd.Parameters.AddWithValue("@campgroundId", campgroundId);
-
-        //            SqlDataReader rdr = cmd.ExecuteReader();
-
-        //            while (rdr.Read())
-        //            {
-        //                cn = Convert.ToString(rdr["campground.name"]);
-        //            }
-        //        }
-        //    }
-        //    catch (SqlException ex)
-        //    {
-        //        Console.WriteLine(ex.Message);
-        //    }
-        //    return cn;
-        //}
+       
     }
 }

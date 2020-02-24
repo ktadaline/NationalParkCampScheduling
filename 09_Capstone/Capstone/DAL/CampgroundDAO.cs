@@ -28,7 +28,7 @@ namespace Capstone.DAL
                 {
                     conn.Open();
                     //query to retrieve campgrounds from databse
-                    string sql = "SELECT * FROM campground Join park on park.park_id =campground.park_id WHERE park.name = @parkName;";
+                    string sql = "SELECT * FROM campground Join park on park.park_id =campground.park_id WHERE park.name = @parkName ORDER BY campground.name;";
                     SqlCommand cmd = new SqlCommand(sql, conn);
                     cmd.Parameters.AddWithValue("@parkName", parkName);
 
@@ -78,10 +78,7 @@ namespace Capstone.DAL
             int count = 1;
             foreach (Campground campground in campgrounds)
             {
-                //string cg = count.ToString() + campground.campgroundName + months[campground.openFromDate] + months[campground.openToDate] + campground.dailyFee.ToString("C");
-                //string cg = campground.campgroundName + "\t" + months[campground.openFromDate] + "\t" + months[campground.openToDate] + "\t" + campground.dailyFee.ToString("C");
                 string cg = $"{campground.campgroundName,-30} {months[campground.openFromDate],-15} {months[campground.openToDate],-15} {campground.dailyFee.ToString("C"),-15}";
-                //display += $"\t\t\t\t{product.SlotLocation,-5} {product.ProductName, -20} {product.Price.ToString("C"), -13} {product.QuantityLeft.ToString(), -20} \n";
 
                 campgroundStrings.Add(cg);
 

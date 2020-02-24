@@ -39,14 +39,11 @@ namespace Capstone.Views
             this.endDate = endDate;
         }
 
-        //menu options
+        //menu options -> empty because this menu is booking only
 
         protected override void SetMenuOptions()
         {
-            //this.menuOptions.Add("1", "View Available Campsites");
-            //this.menuOptions.Add("2", "Do Option 2 and return to Main");
-           // this.menuOptions.Add("1", "Back to Main Menu");
-            //this.quitKey = "1";
+        
         }
 
         /// <summary>
@@ -58,36 +55,6 @@ namespace Capstone.Views
         protected override bool ExecuteSelection(string choice)
         {
 
-
-            //Console.WriteLine("Make your reservation here!");
-
-            //Console.WriteLine("What name should the reservation be made under: ");
-
-            //string name = Console.ReadLine();
-
-            //int resId = reservationDAO.makeReservation(campsite, name, startDate, endDate);
-
-            //Console.WriteLine("Your reservation ID is: " + resId);
-
-            //Console.WriteLine("What is your desired arrival date?");
-            //string input = Console.ReadLine();
-
-            //DateTime arrivalDate = DateTime.Parse(input);
-
-            //Console.WriteLine("What is your desired departure date?");
-
-            //input = Console.ReadLine();
-
-            //DateTime departureDate = DateTime.Parse(input);
-
-            //IList<Site> siteList = campsiteDAO.GetAvailableSitesOnCampground(campground.campgroundName, arrivalDate, departureDate);
-
-            //List<string> top5Camp = campsiteDAO.GetTop5Campsites(siteList, arrivalDate, departureDate);
-            //foreach (string top in top5Camp)
-            //{
-            //    Console.WriteLine(top);
-            //}
-
             Pause("");
 
             MainMenu mm = new MainMenu(campgroundDAO, campsiteDAO, parkDAO, reservationDAO);
@@ -98,19 +65,12 @@ namespace Capstone.Views
         protected override void BeforeDisplayMenu()
         {
             PrintHeader();
-
-
-            //string displayParks = campgroundDAO.Display(campground);
-            //Console.WriteLine("Make a reservation at Campsite Number " + campsite.siteNumber);
         }
 
         protected override void AfterDisplayMenu()
         {
             base.AfterDisplayMenu();
             SetColor(ConsoleColor.Cyan);
-
-            //Console.WriteLine("Make your reservation here!");
-
             Console.WriteLine("\nWhat name should the reservation be made under: ");
 
             string name = Console.ReadLine();
@@ -123,21 +83,14 @@ namespace Capstone.Views
 
             ResetColor();
             ExecuteSelection(resId.ToString());
-            //Pause("");
-            //return true;
-
-            //Console.WriteLine("Display some data here, AFTER the sub-menu is shown....");
-            //ResetColor();
+           
         }
 
         private void PrintHeader()
         {
             SetColor(ConsoleColor.Magenta);
-            Console.WriteLine(Figgle.FiggleFonts.Standard.Render("Book Reservation"));
-            Console.WriteLine(Figgle.FiggleFonts.Standard.Render($"at Campsite Number {campsite.siteNumber}"));
-
-            //Console.WriteLine("Make a reservation at Campsite Number " + campsite.siteNumber);
-
+            Console.WriteLine(Figgle.FiggleFonts.Standard.Render("Book Reservation for"));
+            Console.WriteLine(Figgle.FiggleFonts.Standard.Render($"Campsite Number {campsite.siteNumber}"));
             ResetColor();
         }
     }

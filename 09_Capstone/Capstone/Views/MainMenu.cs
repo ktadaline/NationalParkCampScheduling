@@ -42,15 +42,11 @@ namespace Capstone.Views
         {
             List<Park> viewParks = parkDAO.GetParks();
             int Count = 1;
-            //List<string> displayParks = parkDAO.DisplayParkList(viewParks);
             foreach (Park park in viewParks)
             {
                 menuOptions.Add(Count.ToString(), park.parkName); 
                 Count++;
             }
-            //this.menuOptions.Add("1", "View Available Parks");
-            //this.menuOptions.Add("2", "View Campgrounds at Park");
-            //this.menuOptions.Add("3", "Go to a sub-menu");
             this.menuOptions.Add("Q", "Quit program");
         }
 
@@ -72,71 +68,14 @@ namespace Capstone.Views
             int inputNum = int.Parse(choice);
             Park park = parkSelection[inputNum - 1];
 
-           // string displayParks = parkDAO.DisplayParkDetails(parkSelection[inputNum - 1]);
-            //Console.WriteLine(displayParks);
             ParkInfoMenu sm = new ParkInfoMenu(campgroundDAO, campsiteDAO, parkDAO, reservationDAO, park);
             sm.Run();
             return true;
-
-            //Pause("");
-     
-            //switch (choice)
-            //{
-            //    case "1": // Do whatever option 1 is
-            //        //int i1 = GetInteger("Enter the first integer: ");
-            //        //int i2 = GetInteger("Enter the second integer: ");
-            //        //Console.WriteLine($"{i1} + {i2} = {i1+i2}");
-
-            //        //Console.WriteLine("Select a Park for Further Details:");
-            //        //DisplayParkList(GetParks());
-            //        Console.WriteLine();
-            //        //parkDAO.GetParks();
-            //            //campgroundDAO.GetCampgrounds("Arches");
-            //        viewParks();
-            //        viewParkDetails();
-            //        Pause("Press enter to continue");
-            //        return true;    // Keep running the main menu
-            //    case "2": // Do whatever option 2 is
-
-            //        viewParks();
-            //        Console.WriteLine("Would you like to learn more about parks before making your selection?(Y/N)");
-            //        string input = Console.ReadLine();
-            //        input = input.ToUpper();
-            //        if (input.StartsWith("Y"))
-            //        {
-            //            viewParkDetails();
-            //            Pause("Press enter to continue");
-            //            viewParks();
-            //        }
-            //        getCampgrounds();
-
-            //        Console.WriteLine("Would you like to view reservation menu");
-            //        string input2 = Console.ReadLine();
-            //        input = input2.ToUpper();
-            //        if (input2.StartsWith("Y"))
-            //        {
-            //            SubMenu1 sm1 = new SubMenu1();
-            //            sm1.Run();
-            //            return true;
-            //            //viewParkDetails();
-            //            //Pause("Press enter to continue");
-            //            //viewParks();
-            //        }
-
-            //        //WriteError("Not yet implemented");
-            //        Pause("");
-            //        return true;    // Keep running the main menu
-            //    case "3": // Create and show the sub-menu
-            //        SubMenu1 sm = new SubMenu1();
-            //        sm.Run();
-            //        return true;    // Keep running the main menu
-            //}
 
         }
 
         public void viewParks()
         {
-            //Console.WriteLine("test");
             List<Park> viewParks = parkDAO.GetParks();
             List<string> displayParks = parkDAO.DisplayParkList(viewParks);
             foreach (string park in displayParks)
@@ -173,8 +112,6 @@ namespace Capstone.Views
             {
                 Console.WriteLine(line);
             }
-
-
         }
 
         protected override void BeforeDisplayMenu()

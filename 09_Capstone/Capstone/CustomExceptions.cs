@@ -4,9 +4,16 @@ using System.Text;
 
 namespace Capstone
 {
-    public class InvalidDateSelectionException : Exception
+    public class InvalidDateRangeSelectionException : Exception
     {
-        public InvalidDateSelectionException(string message) : base(message)
+        public InvalidDateRangeSelectionException(string message) : base(message)
+        {
+        }
+    }
+
+    public class InvalidDateScopeException : Exception
+    {
+        public InvalidDateScopeException(string message) : base(message)
         {
         }
     }

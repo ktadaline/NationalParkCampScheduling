@@ -75,7 +75,17 @@ namespace Capstone.Tests
             DateTime EndDate = new DateTime(2020, 3, 3);
             IList<Site> sites = campsiteDAO.GetAvailableSitesOnCampground(Camp, StartDate, EndDate);
             List<string> top5 = campsiteDAO.GetTop5Campsites(sites, StartDate, EndDate);
-            string s = "Site number: " + "2" + " MaxOccupancy: " + "6" + " Is Accessible: " + "Yes" + " Max RV: " + "25" + " Utilities:  " + "Yes" + " Total Price: " + "$100.00";
+            //string s = "Site number: " + "2" + " MaxOccupancy: " + "6" + " Is Accessible: " + "Yes" + " Max RV: " + "25" + " Utilities:  " + "Yes" + " Total Price: " + "$100.00";
+
+            string siteNumber = "2";
+            string maxOccupancy = "6";
+            string isAccessible = "Yes";
+            string maxRV = "25";
+            string utilities = "Yes";
+            string totalPrice = "$100.00";
+
+            string s = $"{siteNumber,-15}{maxOccupancy,-15}{isAccessible,-15}{maxRV,-15}{utilities,-15}{totalPrice,-15}";
+
             Assert.AreEqual(s, top5[0]);
          
         }

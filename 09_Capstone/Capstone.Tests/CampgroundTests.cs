@@ -93,7 +93,13 @@ namespace Capstone.Tests
             List<Park> parks = parkDAO.GetParks();
             IList<Campground> campgrounds = campgroundDAO.GetCampgrounds(parks[0]);
             List<string> campground = campgroundDAO.campgroundsToString(campgrounds);
-            string cg = "1" + "Camp Blue" + "April" + "November" + "$10.00";
+            string campName = "Camp Blue";
+            string openMonth = "April";
+            string closeMonth = "November";
+            string price = "$10.00";
+
+            string cg = $"{campName,-30} {openMonth,-15} {closeMonth,-15} {price,-15}";
+
 
             Assert.AreEqual(cg, campground[0]);
         }
